@@ -1,0 +1,51 @@
+{
+  "version": "1.0",
+  "lastUpdated": "2026-03-12",
+
+  "settings": {
+    "masterName": "Анна Иванова",
+    "masterDescription": "Топ мастер маникюра • Опыт 5 лет • Работаю на премиум материалах",
+    "masterPhoto": "https://images.unsplash.com/photo-1580618672591-eb180b1a973f?w=200",
+    "primaryColor": "#ff69b4",
+    "backgroundImage": "",
+    "confirmationText": "Мастер перезвонит вам за сутки до записи для подтверждения",
+    "botToken": "8692088540:AAE7N1ww_FQ2nqgpMnyFdskTU7YqF0BZ7CY",
+    "botUsername": "nailexamplebot",
+    "masterChatId": "7578590171",
+    "channelUsername": "nailexamplen",
+    "rating": 4.9,
+    "reviewCount": 120
+  },
+
+  "services": [
+    { "name": "Маникюр базовый", "price": 1500, "duration": 60, "emoji": "💅" },
+    { "name": "Маникюр + покрытие", "price": 2500, "duration": 90, "emoji": "💅" },
+    { "name": "Маникюр + дизайн", "price": 3000, "duration": 120, "emoji": "🎨" },
+    { "name": "Снятие покрытия", "price": 500, "duration": 30, "emoji": "✨" },
+    { "name": "Педикюр полный", "price": 3500, "duration": 150, "emoji": "🦶" }
+  ],
+
+  "schedule": [
+    { "date": "2026-03-13", "startTime": "09:00", "endTime": "20:00", "breakStart": "13:00", "breakEnd": "14:00" },
+    { "date": "2026-03-14", "startTime": "10:00", "endTime": "18:00", "breakStart": "", "breakEnd": "" },
+    { "date": "2026-03-15", "startTime": "", "endTime": "", "breakStart": "", "breakEnd": "" },
+    { "date": "2026-03-16", "startTime": "09:00", "endTime": "20:00", "breakStart": "13:00", "breakEnd": "14:00" },
+    { "date": "2026-03-17", "startTime": "09:00", "endTime": "20:00", "breakStart": "13:00", "breakEnd": "14:00" },
+    { "date": "2026-03-18", "startTime": "10:00", "endTime": "18:00", "breakStart": "", "breakEnd": "" },
+    { "date": "2026-03-19", "startTime": "09:00", "endTime": "20:00", "breakStart": "13:00", "breakEnd": "14:00" },
+    { "date": "2026-03-20", "startTime": "09:00", "endTime": "20:00", "breakStart": "13:00", "breakEnd": "14:00" },
+    { "date": "2026-03-21", "startTime": "10:00", "endTime": "16:00", "breakStart": "", "breakEnd": "" },
+    { "date": "2026-03-22", "startTime": "", "endTime": "", "breakStart": "", "breakEnd": "" },
+    { "date": "2026-03-23", "startTime": "09:00", "endTime": "20:00", "breakStart": "13:00", "breakEnd": "14:00" },
+    { "date": "2026-03-24", "startTime": "09:00", "endTime": "20:00", "breakStart": "13:00", "breakEnd": "14:00" },
+    { "date": "2026-03-25", "startTime": "10:00", "endTime": "18:00", "breakStart": "", "breakEnd": "" },
+    { "date": "2026-03-26", "startTime": "09:00", "endTime": "20:00", "breakStart": "13:00", "breakEnd": "14:00" },
+    { "date": "2026-03-27", "startTime": "09:00", "endTime": "20:00", "breakStart": "13:00", "breakEnd": "14:00" },
+    { "date": "2026-03-28", "startTime": "10:00", "endTime": "16:00", "breakStart": "", "breakEnd": "" },
+    { "date": "2026-03-29", "startTime": "", "endTime": "", "breakStart": "", "breakEnd": "" },
+    { "date": "2026-03-30", "startTime": "09:00", "endTime": "20:00", "breakStart": "13:00", "breakEnd": "14:00" },
+    { "date": "2026-03-31", "startTime": "09:00", "endTime": "20:00", "breakStart": "13:00", "breakEnd": "14:00" }
+  ],
+
+  "adminPassword": "NailPro2024!"
+}

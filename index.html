@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#000000">
+  <title>Запись к мастеру</title>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="preloader" class="preloader">
+    <div class="preloader-content">
+      <div class="preloader-logo">💅</div>
+      <div class="preloader-skeleton">
+        <div class="skeleton-line skeleton-short"></div>
+        <div class="skeleton-line skeleton-long"></div>
+        <div class="skeleton-line skeleton-medium"></div>
+      </div>
+      <div class="preloader-text">Загрузка...</div>
+    </div>
+  </div>
+
+  <div class="app-container">
+    <!-- WELCOME -->
+    <section id="welcome-screen" class="screen active">
+      <div class="welcome-header">
+        <div class="welcome-content-wrapper">
+          <div class="master-avatar">
+            <img id="master-photo" src="" alt="Мастер" referrerpolicy="no-referrer" onerror="this.src='https://via.placeholder.com/160x160?text=No+Photo'">
+          </div>
+          <h1 id="master-name" class="master-name">Анна Иванова</h1>
+          <p id="welcome-text" class="master-description">Топ-мастер с опытом 5 лет</p>
+        </div>
+      </div>
+      <div class="welcome-body">
+        <button id="start-btn" class="btn btn-primary">
+          <span class="btn-text">Выбрать услугу</span>
+          <span class="btn-icon">→</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section id="services-screen" class="screen">
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title">Услуги</h2>
+        </div>
+        <div id="services-list" class="services-list"></div>
+      </div>
+      <button id="back-to-welcome" class="btn btn-secondary">← Назад</button>
+    </section>
+
+    <!-- CALENDAR -->
+    <section id="calendar-screen" class="screen">
+      <div class="card">
+        <div class="calendar-header">
+          <button id="prev-month" class="calendar-nav">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M15 18l-6-6 6-6"/>
+            </svg>
+          </button>
+          <h2 id="current-month" class="month-title"></h2>
+          <button id="next-month" class="calendar-nav">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M9 18l6-6-6-6"/>
+            </svg>
+          </button>
+        </div>
+        <div class="calendar-grid">
+          <div class="weekday">Пн</div>
+          <div class="weekday">Вт</div>
+          <div class="weekday">Ср</div>
+          <div class="weekday">Чт</div>
+          <div class="weekday">Пт</div>
+          <div class="weekday" style="color: #ff6b6b;">Сб</div>
+          <div class="weekday" style="color: #ff6b6b;">Вс</div>
+        </div>
+        <div id="calendar-days" class="calendar-days"></div>
+      </div>
+      <button id="back-to-services" class="btn btn-secondary">← Назад</button>
+    </section>
+
+    <!-- SLOTS -->
+    <section id="slots-screen" class="screen">
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title" id="selected-date"></h2>
+        </div>
+        <div class="selected-service-card">
+          <div class="service-card-icon">💅</div>
+          <div class="service-card-info">
+            <div id="selected-service-info" class="service-card-text"></div>
+          </div>
+        </div>
+        <div id="slots-list" class="slots-list"></div>
+      </div>
+      <button id="back-to-calendar" class="btn btn-secondary">← Назад</button>
+    </section>
+
+    <!-- FORM -->
+    <section id="form-screen" class="screen">
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title">Ваши данные</h2>
+        </div>
+        <div class="booking-summary">
+          <div class="summary-item">
+            <span class="summary-label">Услуга</span>
+            <span class="summary-value" id="summary-service"></span>
+          </div>
+          <div class="summary-item">
+            <span class="summary-label">Дата</span>
+            <span class="summary-value" id="summary-date"></span>
+          </div>
+          <div class="summary-item">
+            <span class="summary-label">Время</span>
+            <span class="summary-value" id="summary-time"></span>
+          </div>
+          <div class="summary-item total">
+            <span class="summary-label">Цена</span>
+            <span class="summary-value price" id="summary-price"></span>
+          </div>
+        </div>
+        <form id="booking-form" class="booking-form">
+          <div class="form-group">
+            <label for="client-name" class="form-label">👤 Имя</label>
+            <input type="text" id="client-name" name="name" required placeholder="Как к вам обращаться?" class="form-input">
+          </div>
+          <div class="form-group">
+            <label for="client-phone" class="form-label">📱 Телефон</label>
+            <input type="tel" id="client-phone" name="phone" required placeholder="+7 (999) 000-00-00" class="form-input">
+            <span id="phone-error" class="error-message"></span>
+          </div>
+          <button type="submit" class="btn btn-primary" id="submit-btn">
+            <span class="btn-text">Записаться</span>
+            <span class="btn-icon">✨</span>
+            <span class="btn-loader"></span>
+          </button>
+        </form>
+      </div>
+      <button id="back-to-slots" class="btn btn-secondary">← Назад</button>
+    </section>
+
+    <!-- CONFIRMATION -->
+    <section id="confirmation-screen" class="screen">
+      <div class="card confirmation-card">
+        <div class="success-circle">
+          <svg viewBox="0 0 100 100" class="success-svg">
+            <path class="success-check" d="M25 55 L42 72 L75 28"/>
+          </svg>
+        </div>
+        <h2 class="confirmation-title">Запись подтверждена!</h2>
+        <p class="confirmation-text" id="confirmation-text"></p>
+        <div class="confirmation-details">
+          <div class="detail-item">
+            <span class="detail-icon">⏰</span>
+            <span>Мастер свяжется с вами</span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-icon">📱</span>
+            <span>Напомним за 24 часа</span>
+          </div>
+        </div>
+        <button id="close-btn" class="btn btn-primary">Закрыть</button>
+      </div>
+    </section>
+
+    <!-- LOADING -->
+    <section id="loading-screen" class="screen">
+      <div class="card loading-card">
+        <div class="loader-wrapper">
+          <div class="loader">
+            <div class="loader-ring"></div>
+            <div class="loader-ring"></div>
+          </div>
+        </div>
+        <p class="loading-text">Загрузка...</p>
+      </div>
+    </section>
+
+    <!-- ERROR -->
+    <section id="error-screen" class="screen">
+      <div class="card error-card">
+        <div class="error-circle">!</div>
+        <h2 class="error-title">Что-то пошло не так</h2>
+        <p class="error-message" id="error-text"></p>
+        <button id="retry-btn" class="btn btn-primary">Попробовать снова</button>
+      </div>
+    </section>
+
+    <!-- SUBSCRIBE -->
+    <section id="subscribe-screen" class="screen">
+      <div class="card subscribe-card">
+        <div class="subscribe-icon-wrapper">
+          <span class="subscribe-emoji">📢</span>
+        </div>
+        <h2 class="subscribe-title">Важный момент!</h2>
+        <p class="subscribe-text">Для записи нужно быть подписанным на наш канал</p>
+        <div class="subscribe-channel-card">
+          <span>💎</span>
+          <span id="subscribe-channel-name" class="channel-name">@channel</span>
+        </div>
+        <button id="check-subscribe-btn" class="btn btn-primary">Я подписался!</button>
+        <button id="back-to-form" class="btn btn-secondary">← Вернуться</button>
+      </div>
+    </section>
+
+    <!-- PASSWORD MODAL -->
+    <div id="password-modal" class="modal-overlay hidden">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title">Вход для мастера</h3>
+          <button id="close-password-modal" class="modal-close">×</button>
+        </div>
+        <p class="modal-description">Введите пароль для доступа к настройкам</p>
+        <div class="password-input-wrapper">
+          <input type="password" id="admin-password" placeholder="Пароль" class="password-input">
+          <button id="toggle-password-visibility" class="toggle-password">👁️</button>
+        </div>
+        <p id="password-error" class="error-message"></p>
+        <button id="submit-password" class="btn btn-primary">Войти</button>
+      </div>
+    </div>
+
+    <!-- ADMIN -->
+    <section id="admin-screen" class="screen">
+      <div class="admin-card">
+        <div class="admin-header">
+          <h2 class="card-title">Настройки</h2>
+          <button id="close-admin" class="modal-close">×</button>
+        </div>
+        <div class="admin-tabs">
+          <button class="admin-tab active" data-tab="settings">📋</button>
+          <button class="admin-tab" data-tab="services">💅</button>
+          <button class="admin-tab" data-tab="schedule">📅</button>
+          <button class="admin-tab" data-tab="bookings">📝</button>
+          <button class="admin-tab" data-tab="stats">📊</button>
+          <button class="admin-tab" data-tab="security">🔐</button>
+        </div>
+
+        <div class="admin-tab-content active" id="tab-settings">
+          <div class="admin-section">
+            <h3 class="admin-section-title">Информация о мастере</h3>
+            <div class="form-group">
+              <label class="form-label">Имя мастера *</label>
+              <input type="text" id="admin-master-name" placeholder="Анна Иванова" class="form-input">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Описание</label>
+              <textarea id="admin-master-desc" placeholder="Топ-мастер с опытом 5 лет" rows="3" class="form-input"></textarea>
+            </div>
+            <div class="form-group">
+              <label class="form-label">URL фото</label>
+              <input type="text" id="admin-master-photo" placeholder="https://..." class="form-input">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Текст подтверждения</label>
+              <input type="text" id="admin-confirmation-text" placeholder="Мастер перезвонит..." class="form-input">
+            </div>
+          </div>
+          <div class="admin-section">
+            <h3 class="admin-section-title">Тема</h3>
+            <div class="admin-hint" style="margin-bottom:12px;">Выберите тему оформления</div>
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;">
+              <button class="admin-tab theme-preset active" data-theme="main">Основная</button>
+              <button class="admin-tab theme-preset" data-theme="pink">Розовая</button>
+              <button class="admin-tab theme-preset" data-theme="ocean">Океан</button>
+              <button class="admin-tab theme-preset" data-theme="forest">Лес</button>
+              <button class="admin-tab theme-preset" data-theme="gold">Золото</button>
+            </div>
+          </div>
+          <button id="save-settings" class="btn btn-primary" style="margin-top:16px;">Сохранить</button>
+        </div>
+
+        <div class="admin-tab-content" id="tab-services">
+          <p class="admin-hint">💡 Добавьте услуги: название, цена, длительность</p>
+          <div id="admin-services-list" class="admin-services-list"></div>
+          <button id="add-service-btn" class="btn btn-secondary">+ Добавить услугу</button>
+          <button id="save-services" class="btn btn-primary" style="margin-top:12px;">Сохранить</button>
+        </div>
+
+        <div class="admin-tab-content" id="tab-schedule">
+          <p class="admin-hint">📅 Настройте график работы</p>
+          <div id="admin-schedule-list" class="admin-schedule-list"></div>
+          <button id="save-schedule" class="btn btn-primary" style="margin-top:12px;">Сохранить</button>
+        </div>
+
+        <div class="admin-tab-content" id="tab-bookings">
+          <p class="admin-hint">📋 Все записи клиентов</p>
+          <div id="admin-bookings-list" class="admin-bookings-list"></div>
+          <button id="clear-bookings" class="btn btn-secondary" style="margin-top:12px;color:#ff453a;">🗑️ Очистить все</button>
+        </div>
+
+        <div class="admin-tab-content" id="tab-stats">
+          <p class="admin-hint">📊 Статистика</p>
+          <div class="stats-container">
+            <div class="stat-card">
+              <div class="stat-icon">📝</div>
+              <div class="stat-value" id="stat-total-bookings">0</div>
+              <div class="stat-label">Записей</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon">💰</div>
+              <div class="stat-value" id="stat-total-revenue">0₽</div>
+              <div class="stat-label">Выручка</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon">👥</div>
+              <div class="stat-value" id="stat-unique-clients">0</div>
+              <div class="stat-label">Клиентов</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon">📅</div>
+              <div class="stat-value" id="stat-this-week">0</div>
+              <div class="stat-label">За неделю</div>
+            </div>
+          </div>
+          <div class="bonus-section">
+            <h3 class="admin-section-title">🎁 Бонусы</h3>
+            <div class="bonus-progress">
+              <div class="bonus-progress-bar">
+                <div class="bonus-progress-fill" id="bonus-progress-fill"></div>
+              </div>
+              <div class="bonus-progress-text">
+                <span id="bonus-current">0</span> из <span id="bonus-target">5</span> до скидки
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="admin-tab-content" id="tab-security">
+          <div class="admin-section">
+            <h3 class="admin-section-title">🔐 Смена пароля</h3>
+            <div class="form-group">
+              <label class="form-label">Текущий пароль</label>
+              <input type="password" id="admin-current-password" class="form-input">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Новый пароль</label>
+              <input type="password" id="admin-new-password" class="form-input">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Подтверждение</label>
+              <input type="password" id="admin-confirm-password" class="form-input">
+            </div>
+            <p id="password-change-message" class="error-message"></p>
+            <button id="change-password-btn" class="btn btn-primary" style="margin-top:16px;">Сменить пароль</button>
+          </div>
+        </div>
+
+        <button id="exit-admin" class="btn btn-secondary" style="margin-top:20px;">Выйти</button>
+      </div>
+    </section>
+  </div>
+
+  <script src="config.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
